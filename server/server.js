@@ -8,8 +8,12 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.static(publicPath));
 
-app.get('*', (req, res) => {
+app.get('*', (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
     res.sendFile(path.join(publicPath, 'index.html'));
+    next();
 });
 
 app.listen(port, () => {
